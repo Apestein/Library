@@ -11,21 +11,23 @@
 <body>
     <header>
         <h1>Library</h1>
+        <button class="add-book">+Add Book</button>
         <button>Login</button>
     </header>
     <main>
-        <button class="add-book">+Add Book</button>
         
     </main>
     <div class="modal">
-        <form class="add-book">
-            <h1>Add New Book</h1>
-            <input type="text" placeholder="Title">
-            <input type="text" placeholder="Author">
-            <input type="text" placeholder="Pages">
-            <label>Have you read it?<input type="checkbox"></label>
-            <button type="submit">Submit</button>
-        </form>
+        <div class="modal-content">
+            <form class="add-form">
+                <h1>Add New Book <span>&times</span></h1>
+                <input id="title" type="text" placeholder="Title">
+                <input id="author" type="text" placeholder="Author">
+                <input id="pages" type="number" placeholder="Pages">
+                <label>Have you read it?<input id="read" type="checkbox"></label>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
