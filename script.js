@@ -13,8 +13,7 @@ form.onsubmit = (e) => {
     const read = document.querySelector('#read').checked
     const book = new Book(author, title, pages, read)
     addBookToLibrary(book)
-    main.innerHTML = ''
-    displayBook(myLibrary)
+    displayBook(book, myLibrary.length-1)
     modal.style.display = 'none'
 }
 
@@ -25,27 +24,34 @@ function Book(author, title, pages, read) {
     this.read = read
 }
 
+Book.prototype.changeRead = function() {
+    if (this.read) this.read = false 
+    else this.read = true
+}
+
 function addBookToLibrary(book) {
     myLibrary.push(book)
 }
 
-function displayBook(books) {
-    books.forEach((book, index) => {
+function displayBook(book, index) {
     const article = document.createElement('article')
-    article.classList.add('book')
+    if (book.read) article.classList.add('read')
     article.setAttribute('data', index)
-    for (let x in book) {
+    for (const [key, value] of Object.entries(book)) {
+        if (key === 'read') continue
         const p = document.createElement('p')
-        p.textContent = book[x]
+        p.textContent = `${key}: ${value}`
         article.appendChild(p)
     }
     let readBtn = document.createElement('button')
     readBtn.classList.add('readBtn')
     readBtn.onclick = () => {
         if (book.read) {
+            /* book.changeRead() */
             book.read = false
             readBtn.textContent = 'Not Read'
         } else {
+            /* book.changeRead() */
             book.read = true
             readBtn.textContent = 'Read'
         }
@@ -56,17 +62,21 @@ function displayBook(books) {
     removeBtn.classList.add('removeBtn')
     removeBtn.textContent = 'Remove'
     removeBtn.onclick = () => {
-        article.remove()
         myLibrary.splice(article.getAttribute('data'), 1)
+        main.innerHTML = ''
+        displayBooks(myLibrary)
     }
     article.appendChild(readBtn)
     article.appendChild(removeBtn)
     main.appendChild(article)
-    });
+}
+
+function displayBooks(books) {
+    books.forEach((book, index) => displayBook(book, index));
 }
 
 let book1 = new Book('author1', 'title1', 100, true)
 let book2 = new Book('author2', 'title2', 100, false)
 addBookToLibrary(book1)
 addBookToLibrary(book2)
-displayBook(myLibrary)
+displayBooks(myLibrary)
