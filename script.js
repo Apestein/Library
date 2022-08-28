@@ -3,7 +3,9 @@ const main = document.querySelector('main')
 const modal = document.querySelector('.modal')
 const addBtn = document.querySelector('.add-book')
 const form = document.querySelector('.add-form')
+const modalX = document.querySelector('span')
 
+modalX.onclick = () => modal.style.display = 'none'
 addBtn.onclick = () => modal.style.display = 'block'
 form.onsubmit = (e) => {
     e.preventDefault()
