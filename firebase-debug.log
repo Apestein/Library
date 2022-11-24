@@ -1,0 +1,34 @@
+[debug] [2022-11-24T15:42:19.611Z] ----------------------------------------------------------------------
+[debug] [2022-11-24T15:42:19.613Z] Command:       /home/anon/.nvm/versions/node/v16.15.1/bin/node /home/anon/.nvm/versions/node/v16.15.1/bin/firebase serve --only hosting
+[debug] [2022-11-24T15:42:19.614Z] CLI Version:   11.16.1
+[debug] [2022-11-24T15:42:19.614Z] Platform:      linux
+[debug] [2022-11-24T15:42:19.614Z] Node Version:  v16.15.1
+[debug] [2022-11-24T15:42:19.614Z] Time:          Thu Nov 24 2022 10:42:19 GMT-0500 (Eastern Standard Time)
+[debug] [2022-11-24T15:42:19.614Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-11-24T15:42:19.681Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-11-24T15:42:19.682Z] > authorizing via signed-in user (ltn2057@gmail.com)
+[debug] [2022-11-24T15:42:19.682Z] [iam] checking project library-16c6a for permissions ["firebase.projects.get"]
+[debug] [2022-11-24T15:42:19.684Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/library-16c6a:testIamPermissions [none]
+[debug] [2022-11-24T15:42:19.684Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/library-16c6a:testIamPermissions x-goog-quota-user=projects/library-16c6a
+[debug] [2022-11-24T15:42:19.684Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/library-16c6a:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-11-24T15:42:19.806Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/library-16c6a:testIamPermissions 200
+[debug] [2022-11-24T15:42:19.806Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/library-16c6a:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-11-24T15:42:19.807Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a [none]
+[debug] [2022-11-24T15:42:20.136Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a 200
+[debug] [2022-11-24T15:42:20.136Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a {"projectId":"library-16c6a","projectNumber":"59755844753","displayName":"Library","name":"projects/library-16c6a","resources":{"hostingSite":"library-16c6a","storageBucket":"library-16c6a.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_cc9f3d94-b515-44dd-b8ec-5238e93f1b4a"}
+[debug] [2022-11-24T15:42:20.139Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/library-16c6a/sites 
+[debug] [2022-11-24T15:42:20.489Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/library-16c6a/sites 200
+[debug] [2022-11-24T15:42:20.489Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/library-16c6a/sites {"sites":[{"name":"projects/library-16c6a/sites/library-16c6a","defaultUrl":"https://library-16c6a.web.app","appId":"1:59755844753:web:12c00d7fa0a305db835b30","type":"DEFAULT_SITE"}]}
+[debug] [2022-11-24T15:42:20.489Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a/webApps/1:59755844753:web:12c00d7fa0a305db835b30/config [none]
+[debug] [2022-11-24T15:42:20.849Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a/webApps/1:59755844753:web:12c00d7fa0a305db835b30/config 200
+[debug] [2022-11-24T15:42:20.850Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a/webApps/1:59755844753:web:12c00d7fa0a305db835b30/config {"projectId":"library-16c6a","appId":"1:59755844753:web:12c00d7fa0a305db835b30","storageBucket":"library-16c6a.appspot.com","locationId":"us-central","apiKey":"AIzaSyApa0C4fxHyhqFePbSMAPSqs39oywuPQow","authDomain":"library-16c6a.firebaseapp.com","messagingSenderId":"59755844753"}
+[debug] [2022-11-24T15:42:20.857Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a [none]
+[debug] [2022-11-24T15:42:21.059Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a 200
+[debug] [2022-11-24T15:42:21.059Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/library-16c6a {"projectId":"library-16c6a","projectNumber":"59755844753","displayName":"Library","name":"projects/library-16c6a","resources":{"hostingSite":"library-16c6a","storageBucket":"library-16c6a.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_cc9f3d94-b515-44dd-b8ec-5238e93f1b4a"}
+[info] i  hosting[library-16c6a]: Serving hosting files from: dist {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist\u001b[22m"}}
+[info] ✔  hosting[library-16c6a]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [24/Nov/2022:15:42:31 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [24/Nov/2022:15:42:31 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [24/Nov/2022:15:42:31 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [24/Nov/2022:15:42:31 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [24/Nov/2022:16:48:02 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [24/Nov/2022:16:48:02 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [24/Nov/2022:16:51:44 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [24/Nov/2022:16:51:44 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36\""}}
