@@ -187,7 +187,6 @@ function displayBooks(books) {
 async function getBooksFromDB() {
   if (!getAuth().currentUser) console.log("no user")
   try {
-    //const email = "ltn960820@gmail.com"
     const email = getAuth().currentUser.email
     const q = query(collection(db, "users", email, "messages"))
     const querySnapShot = await getDocs(q)
