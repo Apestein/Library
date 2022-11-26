@@ -11,6 +11,7 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
+  getDocs,
 } from "firebase/firestore"
 import {
   getAuth,
@@ -29,6 +30,7 @@ const firebaseConfig = {
   appId: "1:59755844753:web:12c00d7fa0a305db835b30",
 }
 const app = initializeApp(firebaseConfig)
+const db = getFirestore(app)
 
 let myLibrary = []
 const main = document.querySelector("main")
@@ -43,22 +45,21 @@ const userPicElement = document.querySelector("#profile-img")
 
 modalX.onclick = () => (modal.style.display = "none")
 addBtn.onclick = () => (modal.style.display = "block")
-/* form.onsubmit = (e) => {
-  e.preventDefault()
-  const author = document.querySelector("#author").value
-  const title = document.querySelector("#title").value
-  const pages = document.querySelector("#pages").value
-  const read = document.querySelector("#read").checked
-  const book = new Book(author, title, pages, read)
-  addBookToLibrary(book)
-  displayBook(book, myLibrary.length - 1)
-  modal.style.display = "none"
-} */
 form.onsubmit = async (e) => {
   e.preventDefault()
   try {
     modal.style.display = "none"
-    await addDoc(collection(getFirestore(), "book"), {
+    const author = document.querySelector("#author").value
+    const title = document.querySelector("#title").value
+    const pages = document.querySelector("#pages").value
+    const read = document.querySelector("#read").checked
+    const book = new Book(author, title, pages, read)
+    addBookToLibrary(book)
+    displayBook(book, myLibrary.length - 1)
+
+    if (!getAuth().currentUser) return
+    const email = getAuth().currentUser.email
+    await addDoc(collection(db, "users", email, "messages"), {
       author: document.querySelector("#author").value,
       title: document.querySelector("#title").value,
       pages: document.querySelector("#pages").value,
@@ -74,7 +75,7 @@ signInButtonElement.onclick = async () => {
   await signInWithPopup(getAuth(), provider)
 }
 
-function signOutUser() {
+signOutButtonElement.onclick = () => {
   signOut(getAuth())
 }
 
@@ -100,7 +101,7 @@ function authStateObserver(user) {
     // Set the user's profile pic and name.
     userPicElement.style.backgroundImage =
       "url(" + addSizeToGoogleProfilePic(profilePicUrl) + ")"
-    userNameElement.querySelector("#user-name").textContent = userName
+    userNameElement.textContent = userName
 
     // Show user's profile and sign-out button.
     userNameElement.style.display = "block"
@@ -183,6 +184,19 @@ function displayBooks(books) {
   books.forEach((book, index) => displayBook(book, index))
 }
 
+async function getBooksFromDB() {
+  if (!getAuth().currentUser) console.log("no user")
+  try {
+    //const email = "ltn960820@gmail.com"
+    const email = getAuth().currentUser.email
+    const q = query(collection(db, "users", email, "messages"))
+    const querySnapShot = await getDocs(q)
+    querySnapShot.forEach((doc) => console.log(doc.data()))
+  } catch (error) {
+    console.error("error", error)
+  }
+}
+
 let book1 = new Book("author1", "title1", 100, true)
 let book2 = new Book("author2", "title2", 100, false)
 addBookToLibrary(book1)
@@ -190,3 +204,4 @@ addBookToLibrary(book2)
 displayBooks(myLibrary)
 
 initFirebaseAuth()
+getBooksFromDB()
