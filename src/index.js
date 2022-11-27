@@ -12,6 +12,7 @@ import {
   doc,
   serverTimestamp,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore"
 import {
   getAuth,
@@ -83,6 +84,22 @@ function initFirebaseAuth() {
   onAuthStateChanged(getAuth(), authStateObserver)
 }
 
+function getBooks() {
+  onAuthStateChanged(getAuth(), async (user) => {
+    if (user) {
+      const email = user.email
+      const q = query(collection(db, "users", email, "messages"))
+      const querySnapShot = await getDocs(q)
+      querySnapShot.forEach((doc) => {
+        const { author, title, pages, read } = doc.data()
+        const book = new Book(author, title, pages, read, doc.ref)
+        addBookToLibrary(book)
+      })
+      displayBooks(myLibrary)
+    }
+  })
+}
+
 function getProfilePicUrl() {
   return getAuth().currentUser.photoURL || "/images/profile_placeholder.png"
 }
@@ -128,11 +145,12 @@ function addSizeToGoogleProfilePic(url) {
   return url
 }
 
-function Book(author, title, pages, read) {
+function Book(author, title, pages, read, ref = null) {
   this.author = author
   this.title = title
   this.pages = pages
   this.read = read
+  this.ref = ref
 }
 
 Book.prototype.changeRead = function () {
@@ -149,7 +167,7 @@ function displayBook(book, index) {
   if (book.read) article.classList.add("read")
   article.setAttribute("data", index)
   for (const [key, value] of Object.entries(book)) {
-    if (key === "read") continue
+    if (key === "read" || key === "ref") continue
     const p = document.createElement("p")
     p.textContent = `${key}: ${value}`
     article.appendChild(p)
@@ -170,10 +188,12 @@ function displayBook(book, index) {
   const removeBtn = document.createElement("button")
   removeBtn.classList.add("removeBtn")
   removeBtn.textContent = "Remove"
-  removeBtn.onclick = () => {
+  removeBtn.onclick = async () => {
     myLibrary.splice(article.getAttribute("data"), 1)
     main.innerHTML = ""
     displayBooks(myLibrary)
+
+    await deleteDoc(book.ref)
   }
   article.appendChild(readBtn)
   article.appendChild(removeBtn)
@@ -184,23 +204,10 @@ function displayBooks(books) {
   books.forEach((book, index) => displayBook(book, index))
 }
 
-async function getBooksFromDB() {
-  if (!getAuth().currentUser) console.log("no user")
-  try {
-    const email = getAuth().currentUser.email
-    const q = query(collection(db, "users", email, "messages"))
-    const querySnapShot = await getDocs(q)
-    querySnapShot.forEach((doc) => console.log(doc.data()))
-  } catch (error) {
-    console.error("error", error)
-  }
-}
-
 let book1 = new Book("author1", "title1", 100, true)
 let book2 = new Book("author2", "title2", 100, false)
 addBookToLibrary(book1)
 addBookToLibrary(book2)
-displayBooks(myLibrary)
+getBooks()
 
 initFirebaseAuth()
-getBooksFromDB()
